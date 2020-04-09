@@ -1,0 +1,34 @@
+version: '3.2'
+services:
+  apex-proxy:
+    build: '../apex-proxy'
+    ports:
+      - '1989:1989'
+    environment:
+      - REDIS_HOST=config-store
+      - REDIS_PORT=6379
+      - PGHOST=logs-db
+      - PGUSER=postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=password
+      - PGPORT=5432
+      - HTTPS_PORT=443
+      - PORT=1989
+    restart: always
+    depends_on:
+      - config-store
+      - logs-db
+  config-store:
+    build: '../config-store'
+    restart: always
+    volumes:
+      - '/data'
+  logs-db:
+    build: '../logs-db'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+    volumes:
+      - '/var/lib/postgresql/data'
+    restart: always

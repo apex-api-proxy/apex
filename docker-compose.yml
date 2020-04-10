@@ -1,6 +1,6 @@
 version: '3.2'
 services:
-  apex-proxy:
+  proxy:
     build: '../apex-proxy'
     ports:
       - '1989:1989'
@@ -19,12 +19,12 @@ services:
       - config-store
       - logs-db
   config-store:
-    build: '../config-store'
+    build: '../apex-config-store'
     restart: always
     volumes:
       - '/data'
   logs-db:
-    build: '../logs-db'
+    build: '../apex-logs-db'
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password

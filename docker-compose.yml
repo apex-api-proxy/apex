@@ -1,7 +1,7 @@
 version: '3.2'
 services:
   proxy:
-    image: 'apexapi/apex-proxy:1.0'
+    image: 'apexapi/apex-proxy:1.0.1'
     ports:
       - '1989:1989'
     environment:

@@ -1,7 +1,7 @@
 version: '3.0'
 services:
   proxy:
-    image: 'apexapi/apex-proxy:1.0.1'
+    image: 'apexapiproxy/apex-proxy:1.0.1'
     ports:
       - '1989:1989'
     environment:
@@ -19,12 +19,12 @@ services:
       - config-store
       - logs-db
   config-store:
-    image: 'apexapi/apex-config-store:1.0'
+    image: 'apexapiproxy/apex-config-store:1.0'
     volumes:
       - '/data'
     restart: always
   logs-db:
-    image: 'apexapi/apex-logs-db:1.0'
+    image: 'apexapiproxy/apex-logs-db:1.0'
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password

@@ -1,0 +1,46 @@
+version: '3.0'
+services:
+  proxy:
+    image: 'apexapi/apex-proxy:1.0.1'
+    ports:
+      - '1989:1989'
+    environment:
+      - REDIS_HOST=localhost
+      - REDIS_PORT=6379
+      - PGHOST=localhost
+      - PGUSER=postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=password
+      - PGPORT=5432
+      - HTTPS_PORT=443
+      - PORT=1989
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: apex
+        awslogs-region: us-east-2
+        awslogs-stream-prefix: web
+  config-store:
+    image: 'apexapi/apex-config-store:1.0'
+    volumes:
+      - '/data'
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: apex
+        awslogs-region: us-east-2
+        awslogs-stream-prefix: web
+  logs-db:
+    image: 'apexapi/apex-logs-db:1.0'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+    volumes:
+      - '/var/lib/postgresql/data'
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: apex
+        awslogs-region: us-east-2
+        awslogs-stream-prefix: web

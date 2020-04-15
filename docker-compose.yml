@@ -32,3 +32,41 @@ services:
     volumes:
       - '/var/lib/postgresql/data'
     restart: always
+  admin-api:
+    # image: 'apexapiproxy/apex-base:1.0'
+    build: '../apex-base'
+    ports:
+      - '1990:1990'
+    environment:
+      - REDIS_IP=config-store
+      - REDIS_PORT=6379
+      - PORT=1990
+      - HTTPS=true
+      - PGHOST=logs-db
+      - PGUSER=postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=2001teamb
+      - PGPORT=5432
+      - ECS_AVAILABLE_LOGGING_DRIVERS='["json-file","awslogs"]'
+    restart: always
+    depends_on:
+      - config-store
+      - logs-db
+  admin-ui:
+    # image: 'apexapiproxy/apex-peak:1.0'
+    build: '../apex-peak'
+    ports:
+      - '1991:1991'
+    environment:
+      - SKIP_PREFLIGHT_CHECK=true
+      - REACT_APP_PUBLIC_URL=./public
+      - REACT_APP_API_URL={admin-api}
+      - REACT_APP_PORT=1991
+      - REACT_APP_API_PORT=1990
+      # - ECS_AVAILABLE_LOGGING_DRIVERS='["json-file","awslogs"]'
+    restart: always
+    # stdin_open: true
+    depends_on:
+      - admin-api
+      - config-store
+      - logs-db

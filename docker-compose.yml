@@ -33,8 +33,8 @@ services:
       - '/var/lib/postgresql/data'
     restart: always
   admin-api:
-    # image: 'apexapiproxy/apex-base:1.0'
-    build: '../apex-base'
+    image: 'apexapiproxy/apex-base:1.0'
+    # build: '../apex-base'
     ports:
       - '1990:1990'
     environment:
@@ -53,8 +53,8 @@ services:
       - config-store
       - logs-db
   admin-ui:
-    # image: 'apexapiproxy/apex-peak:1.0'
-    build: '../apex-peak'
+    image: 'apexapiproxy/apex-peak:1.0'
+    # build: '../apex-peak'
     ports:
       - '1991:1991'
     environment:

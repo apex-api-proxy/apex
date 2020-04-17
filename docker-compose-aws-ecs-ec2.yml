@@ -58,7 +58,6 @@ services:
       - PGDATABASE=postgres
       - PGPASSWORD=password
       - PGPORT=5432
-      # - ECS_AVAILABLE_LOGGING_DRIVERS='["json-file","awslogs"]'
     logging:
       driver: awslogs
       options:
@@ -71,9 +70,7 @@ services:
       - '1991:1991'
     environment:
       - SKIP_PREFLIGHT_CHECK=true
-      # - ECS_AVAILABLE_LOGGING_DRIVERS='["json-file","awslogs"]'
     volumes:
-      # - '.:/app'
       - '/app/node_modules'
     logging:
       driver: awslogs

@@ -1,7 +1,7 @@
 version: '3.0'
 services:
   proxy:
-    image: 'apexapiproxy/apex-proxy:1.0.1'
+    image: 'apexapiproxy/apex-proxy:latest'
     ports:
       - '1989:1989'
     environment:
@@ -33,14 +33,14 @@ services:
       - '/var/lib/postgresql/data'
     restart: always
   admin-api:
-    image: 'apexapiproxy/apex-base:1.0.1'
+    image: 'apexapiproxy/apex-admin-api:latest'
     ports:
       - '1990:1990'
     environment:
       - REDIS_IP=config-store
       - REDIS_PORT=6379
       - PORT=1990
-      - HTTPS=true
+      # - HTTPS=true
       - PGHOST=logs-db
       - PGUSER=postgres
       - PGDATABASE=postgres
@@ -51,10 +51,7 @@ services:
       - config-store
       - logs-db
   admin-ui:
-    image: 'apexapiproxy/apex-peak:1.0.1'
-    # build:
-    #   context: '../apex-peak'
-    #   dockerfile: 'Dockerfile.prod'
+    image: 'apexapiproxy/apex-admin-ui:latest'
     ports:
       - '1991:1991'
     environment:

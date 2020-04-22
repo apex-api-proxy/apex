@@ -32,3 +32,38 @@ services:
     volumes:
       - '/var/lib/postgresql/data'
     restart: always
+  admin-api:
+    image: 'apexapiproxy/apex-base:1.0.1'
+    ports:
+      - '1990:1990'
+    environment:
+      - REDIS_IP=config-store
+      - REDIS_PORT=6379
+      - PORT=1990
+      - HTTPS=true
+      - PGHOST=logs-db
+      - PGUSER=postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=password
+      - PGPORT=5432
+    restart: always
+    depends_on:
+      - config-store
+      - logs-db
+  admin-ui:
+    image: 'apexapiproxy/apex-peak:1.0.1'
+    # build:
+    #   context: '../apex-peak'
+    #   dockerfile: 'Dockerfile.prod'
+    ports:
+      - '1991:1991'
+    environment:
+      - SKIP_PREFLIGHT_CHECK=true
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    restart: always
+    depends_on:
+      - admin-api
+      - config-store
+      - logs-db

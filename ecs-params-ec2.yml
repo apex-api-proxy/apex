@@ -1,0 +1,19 @@
+version: 1
+task_definition:
+  ecs_network_mode: host
+  services:
+    proxy:
+      cpu_shares: 30
+      mem_limit: 500000000
+    config-store:
+      cpu_shares: 30
+      mem_limit: 500000000
+    logs-db:
+      cpu_shares: 30
+      mem_limit: 500000000
+    admin-api:
+      cpu_shares: 5
+      mem_limit: 250000000
+    admin-ui:
+      cpu_shares: 5
+      mem_limit: 250000000

@@ -9,10 +9,8 @@ Welcome to Apex, an API proxy that provides one place to log and control microse
 
 ## Table of Contents
 - [Apex Usage](#apex-usage)
-- [Environment Variables](#environment-variables)
-- [Install](#install)
-- [Deploying Crato](#deploying-crato)
-- [Networking](#Networking)
+- [Install and Deploy](#install)
+- [Deploying with AWS ECS](#deploying-aws)
 - [Show Your Support](#show-your-support)
 
 

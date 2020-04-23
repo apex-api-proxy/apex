@@ -1,5 +1,5 @@
 
-![Apex Banner]('./apex_banner.png')
+![Apex Banner](https://github.com/apex-api-proxy/apex/blob/master/apex_banner.png)
 
 <h1 align="center">Apex API Proxy</h1>
 

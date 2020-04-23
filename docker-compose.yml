@@ -1,7 +1,7 @@
 version: '3.0'
 services:
   proxy:
-    image: 'apexapiproxy/apex-proxy:latest'
+    image: 'apexapiproxy/apex-proxy:1.0.1'
     ports:
       - '1989:1989'
     environment:
@@ -40,7 +40,6 @@ services:
       - REDIS_IP=config-store
       - REDIS_PORT=6379
       - PORT=1990
-      # - HTTPS=true
       - PGHOST=logs-db
       - PGUSER=postgres
       - PGDATABASE=postgres

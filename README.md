@@ -60,11 +60,11 @@ If you prefer, you may reference the step-by-step walkthrough below (updated Apr
    * https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_CLI_installation.html
 5. Configure the ECS CLI (1) - create a cluster configuration
    ```
-   ecs-cli configure --cluster apex-ec2 --default-launch-type EC2 --config-name apex-ec2 --region us-east-2
+   $ ecs-cli configure --cluster apex-ec2 --default-launch-type EC2 --config-name apex-ec2 --region us-east-2
    ```
 6. Configure the ECS CLI (2) - create a profile (replace $AWS_ACCESS_KEY_ID and $AWS_SECRET_ACCESS_KEY with your own)
    ```
-   ecs-cli configure profile --access-key $AWS_ACCESS_KEY_ID --secret-key $AWS_SECRET_ACCESS_KEY --profile-name apex-ec2-profile
+   $ ecs-cli configure profile --access-key $AWS_ACCESS_KEY_ID --secret-key $AWS_SECRET_ACCESS_KEY --profile-name apex-ec2-profile
    ```
 7. Clone the apex-api-proxy/apex repo and change to the Apex root directory
    ```
@@ -77,7 +77,7 @@ If you prefer, you may reference the step-by-step walkthrough below (updated Apr
    * Choose the pem format (used for SSH on Linux / Mac), rather than the ppk format (used for Windows)
 9. Create your ECS cluster
    ```
-   ecs-cli up --keypair apex-ec2 --capability-iam --size 1 --instance-type t2.medium --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
+   $ ecs-cli up --keypair apex-ec2 --capability-iam --size 1 --instance-type t2.medium --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
    ```
 10. Obtain your EC2 instance’s public IP address
     * Locate and click into the ECS cluster you just created in the AWS console https://us-east-2.console.aws.amazon.com/ecs/home?region=us-east-2#/clusters
@@ -95,15 +95,15 @@ If you prefer, you may reference the step-by-step walkthrough below (updated Apr
 12. View the Apex admin panel at http://$EC2_IP_ADDRESS:1991 (remember to use http, rather than https)
 13. Deploy compose file to the cluster
     ```
-    ecs-cli compose --file docker-compose-aws-ecs-ec2.yml --ecs-params ecs-params-ec2.yml up --create-log-groups --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
+    $ ecs-cli compose --file docker-compose-aws-ecs-ec2.yml --ecs-params ecs-params-ec2.yml up --create-log-groups --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
     ```
 14. View running containers. You can see the task ID for your newly created containers in the output
     ```
-    ecs-cli ps --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
+    $ ecs-cli ps --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
     ```
 15. View the container logs (replace \$YOUR_TASK_ID with the task ID in the output from the previous step)
     ```
-    ecs-cli logs --task-id $YOUR_TASK_ID --follow --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
+    $ ecs-cli logs --task-id $YOUR_TASK_ID --follow --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
     ```
 16. Another way to view the logs is on the ECS console
     * Go back to the console page for your current cluster: https://us-east-2.console.aws.amazon.com/ecs/home?region=us-east-2#/clusters/apex-ec2/services
@@ -112,27 +112,27 @@ If you prefer, you may reference the step-by-step walkthrough below (updated Apr
 17. SSH into EC2 instance, for more control using the Docker CLI
     * Change the file permissions of your keypair:
       ```
-      sudo chmod 400 apex-ec2.pem
+      $ sudo chmod 400 apex-ec2.pem
       ```
     * SSH into your EC2 instance (replace the IP address in the below command with that of your cluster):
       ```
-      ssh -i "apex-ec2.pem" ec2-user@ec2-18-189-141-42.us-east-2.compute.amazonaws.com
+      $ ssh -i "apex-ec2.pem" ec2-user@ec2-18-189-141-42.us-east-2.compute.amazonaws.com
       ```
 18. Stop running containers, in preparation for the next step
     ```
-    ecs-cli compose --file docker-compose-aws-ecs-ec2.yml --ecs-params ecs-params-ec2.yml down --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
+    $ ecs-cli compose --file docker-compose-aws-ecs-ec2.yml --ecs-params ecs-params-ec2.yml down --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
     ```
 19. Start a service with the same containers, so that containers restart themselves
     ```
-    ecs-cli compose --file docker-compose-aws-ecs-ec2.yml --ecs-params ecs-params-ec2.yml service up --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
+    $ ecs-cli compose --file docker-compose-aws-ecs-ec2.yml --ecs-params ecs-params-ec2.yml service up --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
     ```
 20. When done with service, remove it
     ```
-    ecs-cli compose --file docker-compose-aws-ecs-ec2.yml --ecs-params ecs-params-ec2.yml service rm --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
+    $ ecs-cli compose --file docker-compose-aws-ecs-ec2.yml --ecs-params ecs-params-ec2.yml service rm --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
     ```
 21. Finally, remove the ECS cluster
     ```
-    ecs-cli down --force --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
+    $ ecs-cli down --force --cluster-config apex-ec2 --ecs-profile apex-ec2-profile
     ```
 
 ## Show your support

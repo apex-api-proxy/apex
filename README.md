@@ -4,7 +4,7 @@
 
 Welcome to Apex, an API proxy that provides one place to log and control microservices. Apex is built with Node.js/Express.js, Redis, TimescaleDB and React, and deploys in containers using Docker and Docker Compose. This repository contains the YAML file that specifies how to configure and deploy containers for the five core elements of Apex; to deploy locally, simply clone the repo and run `docker-compose up` from the root directory. To deploy using AWS Elastic Container Service (ECS), follow the detailed instructions below.
 
-### 🏠 [Homepage](https://apex-api-proxy.github.io/)
+### 🏠 [Read the technical case study here](https://apex-api-proxy.github.io/)
 
 ## Table of Contents
 
